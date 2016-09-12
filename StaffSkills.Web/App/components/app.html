@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="nav nav-pills">
+                            <li [routerLinkActive]="['active']">
+                                <a [routerLink]="['/']">
+                                    <span></span> Employees
+                                </a>
+                            </li>
+                            <li [routerLinkActive]="['active']">
+                                <!-- [routerLink]="['/skills']"-->
+                                <a >
+                                    <span></span> Skills
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
