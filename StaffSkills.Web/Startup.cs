@@ -18,7 +18,7 @@ using StaffSkills.Domain.Repository;
 using StaffSkills.Domain.Repository.Contract;
 using StaffSkills.Domain.Repository.Infrastructure;
 
-namespace StaffskillsWeb
+namespace StaffSkills.Web
 {
     public class Startup
     {

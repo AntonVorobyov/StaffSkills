@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace StaffSkills.Domain.Model.Entities
 {
@@ -7,14 +8,15 @@ namespace StaffSkills.Domain.Model.Entities
     {
         public Position()
         {
-            Employee = new HashSet<Employee>();
-            Skill = new HashSet<Skill>();
+            Employees = new HashSet<Employee>();
+            Skills = new HashSet<Skill>();
         }
 
         public int Id { get; set; }
         public string Title { get; set; }
 
-        public virtual ICollection<Employee> Employee { get; set; }
-        public virtual ICollection<Skill> Skill { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
     }
 }

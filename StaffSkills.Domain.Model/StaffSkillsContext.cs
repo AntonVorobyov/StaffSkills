@@ -10,11 +10,6 @@ namespace StaffSkills.Domain.Model
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Server=(localdb)\v13.0;Database=staffskills_db;Trusted_Connection=True;");
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>(entity =>
@@ -24,7 +19,7 @@ namespace StaffSkills.Domain.Model
                     .HasMaxLength(250);
 
                 entity.HasOne(d => d.Position)
-                    .WithMany(p => p.Employee)
+                    .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.PositionId)
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_Employee_PositionId");
@@ -44,7 +39,7 @@ namespace StaffSkills.Domain.Model
                     .HasMaxLength(150);
 
                 entity.HasOne(d => d.Position)
-                    .WithMany(p => p.Skill)
+                    .WithMany(p => p.Skills)
                     .HasForeignKey(d => d.PositionId)
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_Skill_PositionId");

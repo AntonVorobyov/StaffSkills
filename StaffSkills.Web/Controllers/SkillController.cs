@@ -8,52 +8,52 @@ using StaffSkills.Domain.Repository.Contract;
 
 namespace StaffSkills.Web.Controllers
 {
-    [Route("api/employees")]
-    public class EmployeeController : Controller
+    [Route("api/skills")]
+    public class SkillController : Controller
     {
-        private readonly IEmployeeRepository _employees;
+        private readonly ISkillRepository _skills;
 
-        public EmployeeController(IEmployeeRepository employees)
+        public SkillController(ISkillRepository skills)
         {
-            _employees = employees;
+            _skills = skills;
         }
 
         [Route("")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var employees = await _employees.List();
-            return Ok(employees);
+            var skills = await _skills.Query().ToListAsync();
+            return Ok(skills);
         }
 
         [Route("{id}")]
         [HttpGet]
         public async Task<IActionResult> Get(int id)
         {
-            var employee = await _employees.GetAsync(s => s.Id == id);
-            if (employee == null)
+            var skill = await _skills.GetAsync(s => s.Id == id);
+            if (skill == null)
                 return NotFound();
 
-            return Ok(employee);
+            return Ok(skill);
         }
 
         [Route("")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] EmployeeModel model)
+        public async Task<IActionResult> Create([FromBody] SkillModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var employee = new Employee
+                var skill = new Skill
                 {
-                    Name = model.Name,
+                    Title = model.Title,
                     PositionId = model.PositionId
                 };
 
-                await _employees.InsertAndSaveAsync(employee);
-                return Created($"api/employees/{employee.Id}", employee);
+                await _skills.InsertAndSaveAsync(skill);
+                return Created($"api/skills/{skill.Id}", skill);
             }
             catch (Exception e)
             {
@@ -63,25 +63,25 @@ namespace StaffSkills.Web.Controllers
 
         [Route("{id}")]
         [HttpPut]
-        public async Task<IActionResult> Update(int id, [FromBody] EmployeeModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] SkillModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var employee = await _employees.GetAsync(s => s.Id == id);
-            if (employee == null)
+            var skill = await _skills.GetAsync(s => s.Id == id);
+            if (skill == null)
                 return NotFound();
 
             try
             {
-                if (employee.Name != model.Name)
-                    employee.Name = model.Name;
+                if (skill.Title != model.Title)
+                    skill.Title = model.Title;
 
-                if (employee.PositionId != model.PositionId)
-                    employee.PositionId = model.PositionId;
+                if (skill.PositionId != model.PositionId)
+                    skill.PositionId = model.PositionId;
 
-                await _employees.UpdateAndSaveAsync(employee);
-                return Ok(employee);
+                await _skills.UpdateAndSaveAsync(skill);
+                return Ok(skill);
             }
             catch (Exception e)
             {
@@ -93,14 +93,14 @@ namespace StaffSkills.Web.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var employee = await _employees.GetAsync(s => s.Id == id);
-            if (employee == null)
+            var skill = await _skills.GetAsync(s => s.Id == id);
+            if (skill == null)
                 return NotFound();
 
             try
             {
-                await _employees.DeleteAndSaveAsync(employee);
-                return Ok(employee);
+                await _skills.DeleteAndSaveAsync(skill);
+                return Ok(skill);
             }
             catch (Exception e)
             {

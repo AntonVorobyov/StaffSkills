@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../../models/employee';
-import { EmployeeService } from '../../services/employee-service';
+import { Employee } from '../models/employee';
+import { EmployeeService } from '../services/employee-service';
 
 @Component({
-  selector: 'home',
-  template: require('./home.html'),
-  providers: [EmployeeService]
+    selector: 'employees',
+    template: require('./employees.html'),
+    providers: [EmployeeService]
 })
-export class Home implements OnInit {
+export class EmployeesComponent implements OnInit {
 
     private employees: Employee[];
 
@@ -22,6 +22,7 @@ export class Home implements OnInit {
                 this.employees = <Employee[]>response.json();
             },
             error => {
+                console.log("error", error);
             });
     }
 }
